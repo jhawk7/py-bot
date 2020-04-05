@@ -1,4 +1,4 @@
-from l298n import l298n
+import l298n
 import RPi.GPIO as GPIO
 
 def motorTest(pin1, pin2):
