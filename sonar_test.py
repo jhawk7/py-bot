@@ -1,4 +1,5 @@
 from adafruit_circuitpython_hcsr04 import HCSR04
+import time
 
 def sonarTest(trigger, echo):
 	sonar = HCSR04(trigger_pin=trigger, echo_pin=echo)
