@@ -9,30 +9,27 @@ class L298N:
         self.in3 = in3
         self.in4 = in4
         self.ena = ena
-        self.enb= enb
-        self._setPins
-        self._setPWM
+        self.enb = enb
 
-    def _setPins(self):
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.in1,GPIO.OUT)
-        GPIO.setup(self.in2,GPIO.OUT)
-        GPIO.setup(self.in3,GPIO.OUT)
-        GPIO.setup(self.in4,GPIO.OUT)
-        GPIO.setup(self.ena,GPIO.OUT)
-        GPIO.setup(self.enb,GPIO.OUT)
-        GPIO.output(self.in1,GPIO.LOW)
-        GPIO.output(self.in2,GPIO.LOW)
-        GPIO.output(self.in3,GPIO.LOW)
-        GPIO.output(self.in4,GPIO.LOW)
+        GPIO.setup(in1,GPIO.OUT)
+        GPIO.setup(in2,GPIO.OUT)
+        GPIO.setup(in3,GPIO.OUT)
+        GPIO.setup(in4,GPIO.OUT)
+        GPIO.setup(ena,GPIO.OUT)
+        GPIO.setup(enb,GPIO.OUT)
+        GPIO.output(in1,GPIO.LOW)
+        GPIO.output(in2,GPIO.LOW)
+        GPIO.output(in3,GPIO.LOW)
+        GPIO.output(in4,GPIO.LOW)
 
-    def _setPWM(self):
         pwm_ena=GPIO.PWM(ena,1000)
         pwm_enb=GPIO.PWM(enb,1000)
         #Default speed is low and forward
         # low=25, med=50, high=75
         pwm_ena.start(50)
         pwm_enb.start(50)
+
 
     def forward(self):
         GPIO.setmode(GPIO.BCM)
@@ -41,6 +38,7 @@ class L298N:
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
 
+
     def backward(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.output(self.in1,GPIO.LOW)
@@ -48,12 +46,14 @@ class L298N:
         GPIO.output(self.in3,GPIO.HIGH)
         GPIO.output(self.in4,GPIO.LOW)
 
+
     def stop(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.LOW)
+
 
     def exit(self):
         GPIO.cleanup()
