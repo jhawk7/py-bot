@@ -52,6 +52,9 @@ class L298N:
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.LOW)
 
+    def exit(self):
+        GPIO.cleanup()
+
 '''
 in1 = 24
 in2 = 23
