@@ -1,7 +1,7 @@
 import L298N
 
 def motorTest(in1, in2, in3, in4, ena, enb):
-	motor = l298n(in1, in2, in3, in4, ena, enb)
+	motor = L298N(in1, in2, in3, in4, ena, enb)
 	motor.forward()
 	motor.stop()
 	motor.backward()
