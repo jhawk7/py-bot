@@ -1,10 +1,12 @@
-import l298n
+import L298N
 
-def motorTest(pin1, pin2):
-	motor = l298n(pin1, pin2)
-	motor.forwards()
-	motor.backwards()
+def motorTest(in1, in2, in3, in4, ena, enb):
+	motor = l298n(in1, in2, in3, in4, ena, enb)
+	motor.forward()
+	motor.stop()
+	motor.backward()
 	motor.stop()
 
 # using GPIO pin numbers not board pin numbers
-motorTest(17, 27)
+# GPIO_17 => pin 11, GPIO_27 => pin 13, GPIO_24 => pin 18, GPIO_25 => pin 22
+motorTest(17, 27, 24, 25)
