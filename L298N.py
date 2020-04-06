@@ -11,7 +11,6 @@ class L298N:
         self._set_pins
 
     def _set_pins(self):
-        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.in1,GPIO.OUT)
         GPIO.setup(self.in2,GPIO.OUT)
         GPIO.setup(self.in3,GPIO.OUT)
@@ -22,6 +21,9 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.LOW)
+
+    def _setMode(self):
+        GPIO.setmode(GPIO.BCM)
         pwm_ena=GPIO.PWM(ena,1000)
         pwm_enb=GPIO.PWM(enb,1000)
         #Default speed is low and forward
@@ -30,18 +32,21 @@ class L298N:
         pwm_enb.start(50)
 
     def forward(self):
+        self._setMode()
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
 
     def backward(self):
+        self._setMode()
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.HIGH)
         GPIO.output(self.in3,GPIO.HIGH)
         GPIO.output(self.in4,GPIO.LOW)
 
     def stop(self):
+        self._setMode()
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
