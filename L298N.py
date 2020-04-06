@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO          
 
+#RPi.GPIO is specific to arm processors and will not work on other machines
+
 class L298N:
     def __init__(self, in1, in2, in3, in4, ena, enb):
         self.in1 = in1
@@ -8,9 +10,11 @@ class L298N:
         self.in4 = in4
         self.ena = ena
         self.enb= enb
-        self._set_pins
+        self._setPins
+        self._setPWM
 
-    def _set_pins(self):
+    def _setPins(self):
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.in1,GPIO.OUT)
         GPIO.setup(self.in2,GPIO.OUT)
         GPIO.setup(self.in3,GPIO.OUT)
@@ -22,8 +26,7 @@ class L298N:
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.LOW)
 
-    def _setMode(self):
-        GPIO.setmode(GPIO.BCM)
+    def _setPWM(self):
         pwm_ena=GPIO.PWM(ena,1000)
         pwm_enb=GPIO.PWM(enb,1000)
         #Default speed is low and forward
@@ -32,21 +35,18 @@ class L298N:
         pwm_enb.start(50)
 
     def forward(self):
-        self._setMode()
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
 
     def backward(self):
-        self._setMode()
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.HIGH)
         GPIO.output(self.in3,GPIO.HIGH)
         GPIO.output(self.in4,GPIO.LOW)
 
     def stop(self):
-        self._setMode()
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
