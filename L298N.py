@@ -30,7 +30,6 @@ class L298N:
         pwm_enb.start(50)
 
     def forward(self):
-        GPIO.setmode(GPIO.BCM)
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
