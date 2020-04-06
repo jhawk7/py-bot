@@ -1,4 +1,4 @@
-import L298N
+from L298N import L298N
 
 def motorTest(in1, in2, in3, in4, ena, enb):
 	motor = L298N(in1, in2, in3, in4, ena, enb)
