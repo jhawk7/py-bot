@@ -22,12 +22,15 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.LOW)
-        p=GPIO.PWM(en,1000)
+        pwm_ena=GPIO.PWM(ena,1000)
+        pwm_enb=GPIO.PWM(enb,1000)
         #Default speed is low and forward
         # low=25, med=50, high=75
-        p.start(50)
+        pwm_ena.start(50)
+        pwm_enb.start(50)
 
     def forward(self):
+        GPIO.setmode(GPIO.BCM)
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
