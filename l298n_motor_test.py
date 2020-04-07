@@ -2,8 +2,9 @@ from L298N import L298N
 import time
 
 def setMotors(in1, in2, in3, in4, ena, enb):
-	 return motor = L298N(in1, in2, in3, in4, ena, enb)
-	
+	motor = L298N(in1, in2, in3, in4, ena, enb)
+	return motor
+
 
 # using GPIO pin numbers not board pin numbers
 # GPIO_17 => pin 11, GPIO_27 => pin 13, GPIO_24 => pin 18, GPIO_25 => pin 22, GPIO_10 => pin 19, GPIO_9 =>21 
