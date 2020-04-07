@@ -33,25 +33,43 @@ class L298N:
 
 
     def forward(self):
-            GPIO.output(self.in1,GPIO.HIGH)
-            GPIO.output(self.in2,GPIO.LOW)
-            GPIO.output(self.in3,GPIO.HIGH)
-            GPIO.output(self.in4,GPIO.LOW)
+        GPIO.output(self.in1,GPIO.HIGH)
+        GPIO.output(self.in2,GPIO.LOW)
+        GPIO.output(self.in3,GPIO.HIGH)
+        GPIO.output(self.in4,GPIO.LOW)
 
 
     def backward(self):
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.HIGH)
-            GPIO.output(self.in3,GPIO.LOW)
-            GPIO.output(self.in4,GPIO.HIGH)
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.HIGH)
+        GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.HIGH)
 
 
     def stop(self):
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.LOW)
-            GPIO.output(self.in3,GPIO.LOW)
-            GPIO.output(self.in4,GPIO.LOW)
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.LOW)
+        GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.LOW)
 
+
+    def leftTurn(self):
+        #zero radius turn
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.HIGH)
+        GPIO.output(self.in3,GPIO.HIGH)
+        GPIO.output(self.in4,GPIO.LOW)
+        time.sleep(1)
+        self.stop()
+
+    def rightTurn(self):
+        #zero radius turn
+        GPIO.output(self.in1,GPIO.HIGH)
+        GPIO.output(self.in2,GPIO.LOW)
+        GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.HIGH)
+        time.sleep(1)
+        self.stop()
 
     def exit(self):
         GPIO.cleanup()
