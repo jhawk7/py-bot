@@ -1,4 +1,5 @@
-import RPi.GPIO as GPIO          
+import RPi.GPIO as GPIO 
+import time         
 
 #RPi.GPIO is specific to arm processors and will not work on other machines
 
@@ -32,26 +33,20 @@ class L298N:
 
 
     def forward(self):
-        while True:
-            GPIO.setmode(GPIO.BCM)
             GPIO.output(self.in1,GPIO.HIGH)
             GPIO.output(self.in2,GPIO.LOW)
-            GPIO.output(self.in3,GPIO.LOW)
-            GPIO.output(self.in4,GPIO.HIGH)
-
-
-    def backward(self):
-        while True:
-            GPIO.setmode(GPIO.BCM)
-            GPIO.output(self.in1,GPIO.LOW)
-            GPIO.output(self.in2,GPIO.HIGH)
             GPIO.output(self.in3,GPIO.HIGH)
             GPIO.output(self.in4,GPIO.LOW)
 
 
+    def backward(self):
+            GPIO.output(self.in1,GPIO.LOW)
+            GPIO.output(self.in2,GPIO.HIGH)
+            GPIO.output(self.in3,GPIO.LOW)
+            GPIO.output(self.in4,GPIO.HIGH)
+
+
     def stop(self):
-        while True:
-            GPIO.setmode(GPIO.BCM)
             GPIO.output(self.in1,GPIO.LOW)
             GPIO.output(self.in2,GPIO.LOW)
             GPIO.output(self.in3,GPIO.LOW)

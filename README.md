@@ -1,6 +1,6 @@
 Raspberry pi bot using python
 
-* Dependencies
+Dependencies
 - install Python3 RPI
 `sudo apt-get install python3-rpi.gpio`
 
