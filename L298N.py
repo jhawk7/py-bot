@@ -59,7 +59,7 @@ class L298N:
         GPIO.output(self.in2,GPIO.HIGH)
         GPIO.output(self.in3,GPIO.HIGH)
         GPIO.output(self.in4,GPIO.LOW)
-        time.sleep(0.5)
+        time.sleep(0.35)
         self.stop()
 
     def rightTurn(self):
@@ -68,7 +68,7 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
-        time.sleep(0.5)
+        time.sleep(0.35)
         self.stop()
 
     def spin(self):
@@ -77,7 +77,7 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
-        time.sleep(2)
+        time.sleep(1.4)
         self.stop()
 
     def turn(self):
@@ -86,7 +86,7 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
-        time.sleep(1)
+        time.sleep(.7)
         self.stop()
 
     def exit(self):
