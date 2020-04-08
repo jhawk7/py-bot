@@ -3,7 +3,7 @@ import os, signal
 
 from time import sleep, time
 
-class UltraSonic():
+class Ultrasonic():
     # Ultrasonic sensor class 
     
     def __init__(self, TRIG, ECHO, offset = 0.5):
