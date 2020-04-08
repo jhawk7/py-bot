@@ -86,7 +86,7 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
-        time.sleep(.75)
+        time.sleep(.65)
         self.stop()
 
     def exit(self):
