@@ -13,7 +13,7 @@ def sonarTest(trigger, echo):
 
 	while True:
 		try:
-			if sonar.ping > MIN_DISTANCE:
+			if sonar.ping() > MIN_DISTANCE:
 				#LED will turn on when object is detected 
 				GPIO.output(LED, GPIO.HIGH)
 		except RuntimeError:
