@@ -77,7 +77,7 @@ class L298N:
         GPIO.output(self.in2,GPIO.LOW)
         GPIO.output(self.in3,GPIO.LOW)
         GPIO.output(self.in4,GPIO.HIGH)
-        time.sleep(2)
+        time.sleep(1.25)
         self.stop()
 
     def turn(self):
