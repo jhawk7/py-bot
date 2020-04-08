@@ -22,6 +22,7 @@ def sonarTest(trigger, echo):
 
 
 # using GPIO pin numbers opposed to board pin numbers
-sonarTest(3, 4)
+#GPIO_22 => pin 15; GPIO_23 => pin 16
+sonarTest(22, 23)
 
 
