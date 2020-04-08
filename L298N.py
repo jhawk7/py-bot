@@ -53,7 +53,7 @@ class L298N:
         GPIO.output(self.in4,GPIO.LOW)
 
 
-    def leftTurn(self):
+    def rightTurn(self):
         #zero radius turn
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.HIGH)
@@ -62,7 +62,7 @@ class L298N:
         time.sleep(0.5)
         self.stop()
 
-    def rightTurn(self):
+    def leftTurn(self):
         #zero radius turn
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2,GPIO.LOW)
