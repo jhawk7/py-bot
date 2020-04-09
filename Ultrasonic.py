@@ -33,7 +33,7 @@ class Ultrasonic():
 
         pulse_duration = pulse_end - pulse_start 
         # Distance = 17160.5 * Time (unit cm) at sea level and 20C
-        distance = pulse_duration * 17150            
+        distance = pulse_duration * 17160.5            
         distance = round(distance, 2)                    
 
         if distance > 2 and distance < 400:              
