@@ -68,7 +68,7 @@ def recover():
 def stop():
 	while True:
 		user_input = raw_input()
-		if user_input = 'x'
+		if user_input == 'x'
 			STOP = True
 			motor.stop()
 			goThread.join()
