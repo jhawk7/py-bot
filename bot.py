@@ -2,7 +2,7 @@ import time
 import RPi.GPIO as GPIO
 from Ultrasonic import Ultrasonic
 from L298N import L298N
-import threading
+from threading import Thread
 
 #Flags
 OBJECT_DETECTED = False
@@ -76,9 +76,13 @@ def stop():
 			motor.exit()
 
 
+
 print("Starting Py-bot, press 'x' to terminate...")
-goThread = threading(name=goThread, threadID=1, target=go())
-detectThread = threading(name=detectThread, threadID=2, target=detect())
+
+goThread = Thread(name=goThread, target=go())
+detectThread = Thread(name=detectThread, target=detect())
+goThread.start()
+detectThread.start()
 stop()
 
 
