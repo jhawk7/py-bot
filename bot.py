@@ -79,8 +79,8 @@ def stop():
 
 print("Starting Py-bot, press 'x' to terminate...")
 
-goThread = Thread(name=goThread, target=go())
-detectThread = Thread(name=detectThread, target=detect())
+goThread = Thread(target=go())
+detectThread = Thread(target=detect())
 goThread.start()
 detectThread.start()
 stop()
