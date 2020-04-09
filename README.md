@@ -6,3 +6,6 @@ Dependencies
 
 - import RPi.GPIO module (this module is designed to be ran on ARM processors)
 `pip3 install RPi.GPIO`
+
+- import threading module
+`pip3 install threading`
