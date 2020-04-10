@@ -34,46 +34,46 @@ sonar = Ultrasonic(TRIG, ECHO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 def detect():
-	while STOP == False:
+	while not STOP:
 		distance = sonar.ping()
 		if distance < MAX_DISTANCE and distance > MIN_DISTANCE:
 			OBJECT_DETECTED = True
-			RECOVERING = True
 			GPIO.output(LED,GPIO.HIGH)
 		else:
 			OBJECT_DETECTED = False
-			RECOVERING = False
 			GPIO.output(LED,GPIO.LOW)
 
 	return
 
 def go():
-	while STOP == False:
-		if (not OBJECT_DETECTED and not RECOVERING and not STOP):
+	while not STOP:
+		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
 
-		elif (OBJECT_DETECTED and RECOVERING and not STOP):
-			recover()
 	return
 
 
 def recover():
+	while OBJECT_DETECTED and not STOP:
+		RECOVERING = True
 		motor.stop()
 		motor.backward()
 		motor.stop()
 		motor.rightTurn()
 		motor.stop()
-
+		RECOVERING = False
+	return
 
 def stop():
+	user_input = raw_input()
 	while True:
-		user_input = raw_input()
 		if user_input == 'x':
 			STOP = True
 			motor.stop()
 			goThread.join()
 			detectThread.join()
 			motor.exit()
+			return
 
 
 
@@ -81,8 +81,10 @@ print("Starting Py-bot, press 'x' to terminate...")
 
 goThread = Thread(target=go())
 detectThread = Thread(target=detect())
+recoverThread = Thread(target=recover())
 goThread.start()
 detectThread.start()
+recoverThread.start()
 stop()
 
 
