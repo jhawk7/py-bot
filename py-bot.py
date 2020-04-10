@@ -70,7 +70,7 @@ def stop():
 	if user_input != None:
 		STOP = True
 		motor.stop()
-
+		motor.exit()
 	return
 
 
@@ -84,7 +84,7 @@ stopThread = Thread(target=stop)
 goThread.start()
 detectThread.start()
 recoverThread.start()
-stopThread.start()
+#stopThread.start()
 
 goThread.join()
 detectThread.join()
