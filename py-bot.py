@@ -9,7 +9,7 @@ OBJECT_DETECTED = False
 RECOVERING = False
 STOP = False
 #Constants
-MAX_DISTANCE = 30 #in cm
+MAX_DISTANCE = 30.00 #in cm
 
 #LED GPIO Pin
 LED = 18
@@ -34,7 +34,7 @@ motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 def detect():
 	while not STOP:
 		distance = sonar.ping()
-		if distance <= MAX_DISTANCE:
+		if distance <= MAX_DISTANCE and distance != 0:
 			OBJECT_DETECTED = True
 			GPIO.output(LED,GPIO.HIGH)
 		else:
