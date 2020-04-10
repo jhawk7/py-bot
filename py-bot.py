@@ -79,12 +79,12 @@ print("Starting Py-bot..press any key to terrminate.")
 
 goThread = Thread(target=go)
 detectThread = Thread(target=detect)
-recoverThread = Thread(target=recover)
+#recoverThread = Thread(target=recover)
 stopThread = Thread(target=stop)
 
 goThread.start()
 detectThread.start()
-recoverThread.start()
+#recoverThread.start()
 stopThread.start()
 
 goThread.join()
