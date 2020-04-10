@@ -7,8 +7,8 @@ from threading import Thread
 #Flags
 OBJECT_DETECTED = False
 RECOVERING = False
-STOP = None
-
+STOP = False
+user_input = input()
 #Constants
 MAX_DISTANCE = 30 #in cm
 
@@ -33,7 +33,7 @@ sonar = Ultrasonic(TRIG, ECHO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 def detect():
-	while STOP == None:
+	while not STOP:
 		distance = sonar.ping()
 		if distance <= MAX_DISTANCE:
 			OBJECT_DETECTED = True
@@ -45,7 +45,7 @@ def detect():
 	return
 
 def go():
-	while STOP == None:
+	while not STOP:
 		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
 
@@ -53,7 +53,7 @@ def go():
 
 
 def recover():
-	while OBJECT_DETECTED and STOP == None:
+	while OBJECT_DETECTED and not STOP:
 		print("Avoiding Obstacle..")
 		RECOVERING = True
 		motor.stop()
@@ -66,27 +66,31 @@ def recover():
 	return
 
 def stop():
-	STOP = input("press any key to terminate...")
 	while True:
-		if STOP != None:
+		if user_input != None:
+			STOP = True
 			motor.stop()
-			goThread.join()
-			detectThread.join()
-			recoverThread.join()
 			motor.exit()
-			return
+		break
+	return
 
 
-print("Starting Py-bot..")
+print("Starting Py-bot..press any key to terrminate.")
 
 goThread = Thread(target=go)
 detectThread = Thread(target=detect)
 recoverThread = Thread(target=recover)
+stopThread = Thread(target=stop)
 goThread.start()
 detectThread.start()
 recoverThread.start()
-stop()
+stopThread.start()
 
+goThread.join()
+detectThread.join()
+recoverThread.join()
+stopThread.join()
 
+print("Py-bot terminated.")
 
 
