@@ -9,7 +9,7 @@ OBJECT_DETECTED = False
 RECOVERING = False
 STOP = False
 #Constants
-MAX_DISTANCE = 30.00 #in cm
+MAX_DISTANCE = 40.00 #in cm
 
 #LED GPIO Pin
 LED = 18
@@ -52,16 +52,17 @@ def go():
 
 
 def recover():
-	while OBJECT_DETECTED and not STOP:
-		print("Avoiding Obstacle..")
-		RECOVERING = True
-		motor.stop()
-		motor.backward()
-		motor.stop()
-		motor.rightTurn()
-		motor.stop()
-		RECOVERING = False
-		print("Obstacle Avoided..")
+	while not STOP:
+		if OBJECT_DETECTED:
+			print("Avoiding Obstacle..")
+			RECOVERING = True
+			motor.stop()
+			motor.backward()
+			motor.stop()
+			motor.rightTurn()
+			motor.stop()
+			RECOVERING = False
+			print("Obstacle Avoided..")
 	return
 
 def stop():
