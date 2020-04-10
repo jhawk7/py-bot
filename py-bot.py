@@ -6,7 +6,7 @@ from threading import Thread
 
 #Flags
 OBJECT_DETECTED = False
-#RECOVERING = False
+RECOVERING = False
 STOP = False
 #Constants
 MAX_DISTANCE = 40 #in cm
@@ -36,6 +36,7 @@ def detect():
 		distance = sonar.ping()
 		if distance <= MAX_DISTANCE and distance != 0:
 			OBJECT_DETECTED = True
+			RECOVERING = True
 			GPIO.output(LED,GPIO.HIGH)
 		else:
 			OBJECT_DETECTED = False
@@ -46,24 +47,24 @@ def detect():
 
 def go():
 	while not STOP:
-		if (not OBJECT_DETECTED):
+		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
 		else:
-			motor.stop()
+			recover()
 	return
 
 
 def recover():
-	while not STOP:
-		while OBJECT_DETECTED:
-			print("Avoiding Obstacle..")
-			motor.stop()
-			motor.backward()
-			motor.stop()
-			motor.rightTurn()
-			motor.stop()
-			print("Obstacle Avoided..")
-	return
+	while OBJECT_DETECTED and RECOVERING:
+		print("Avoiding Obstacle..")
+		motor.stop()
+		motor.backward()
+		motor.stop()
+		motor.rightTurn()
+		motor.stop()
+		print("Obstacle Avoided..")
+		RECOVERING = False
+
 
 def stop():
 	user_input = input()
@@ -84,7 +85,7 @@ stopThread = Thread(target=stop)
 goThread.start()
 detectThread.start()
 recoverThread.start()
-#stopThread.start()
+stopThread.start()
 
 goThread.join()
 detectThread.join()
