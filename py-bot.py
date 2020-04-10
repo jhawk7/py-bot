@@ -6,7 +6,7 @@ from threading import Thread
 
 #Flags
 OBJECT_DETECTED = False
-RECOVERING = False
+#RECOVERING = False
 STOP = False
 #Constants
 MAX_DISTANCE = 40 #in cm
@@ -41,14 +41,15 @@ def detect():
 			OBJECT_DETECTED = False
 			GPIO.output(LED,GPIO.LOW)
 		time.sleep(0.5)
-		
+
 	return
 
 def go():
 	while not STOP:
-		if (not OBJECT_DETECTED and not RECOVERING):
+		if (not OBJECT_DETECTED):
 			motor.forward()
-
+		else:
+			motor.stop()
 	return
 
 
@@ -56,13 +57,11 @@ def recover():
 	while not STOP:
 		if OBJECT_DETECTED:
 			print("Avoiding Obstacle..")
-			RECOVERING = True
 			motor.stop()
 			motor.backward()
 			motor.stop()
 			motor.rightTurn()
 			motor.stop()
-			RECOVERING = False
 			print("Obstacle Avoided..")
 	return
 
