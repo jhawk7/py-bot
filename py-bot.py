@@ -65,7 +65,7 @@ def recover():
 	return
 
 def stop():
-	user_input = raw_input()
+	user_input = input("press 'x' to terminate...")
 	while True:
 		if user_input == 'x':
 			STOP = True
@@ -77,11 +77,11 @@ def stop():
 
 
 
-print("Starting Py-bot, press 'x' to terminate...")
+print("Starting Py-bot..")
 
-goThread = Thread(target=go())
-detectThread = Thread(target=detect())
-recoverThread = Thread(target=recover())
+goThread = Thread(target=go)
+detectThread = Thread(target=detect)
+recoverThread = Thread(target=recover)
 goThread.start()
 detectThread.start()
 recoverThread.start()
