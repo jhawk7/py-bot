@@ -55,7 +55,7 @@ def go():
 
 def recover():
 	while not STOP:
-		if OBJECT_DETECTED:
+		while OBJECT_DETECTED:
 			print("Avoiding Obstacle..")
 			motor.stop()
 			motor.backward()
@@ -70,7 +70,6 @@ def stop():
 	if user_input != None:
 		STOP = True
 		motor.stop()
-		motor.exit()
 
 	return
 
