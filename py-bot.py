@@ -7,11 +7,10 @@ from threading import Thread
 #Flags
 OBJECT_DETECTED = False
 RECOVERING = False
-STOP = False
+STOP = None
 
 #Constants
-MIN_DISTANCE = 20
-MAX_DISTANCE = 100
+MAX_DISTANCE = 30 #in cm
 
 #LED GPIO Pin
 LED = 18
@@ -34,9 +33,9 @@ sonar = Ultrasonic(TRIG, ECHO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 def detect():
-	while not STOP:
+	while STOP == None:
 		distance = sonar.ping()
-		if distance < MAX_DISTANCE and distance > MIN_DISTANCE:
+		if distance <= MAX_DISTANCE:
 			OBJECT_DETECTED = True
 			GPIO.output(LED,GPIO.HIGH)
 		else:
@@ -46,7 +45,7 @@ def detect():
 	return
 
 def go():
-	while not STOP:
+	while STOP == None:
 		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
 
@@ -54,7 +53,8 @@ def go():
 
 
 def recover():
-	while OBJECT_DETECTED and not STOP:
+	while OBJECT_DETECTED and STOP == None:
+		print("Avoiding Obstacle..")
 		RECOVERING = True
 		motor.stop()
 		motor.backward()
@@ -62,19 +62,19 @@ def recover():
 		motor.rightTurn()
 		motor.stop()
 		RECOVERING = False
+		print("Obstacle Avoided..")
 	return
 
 def stop():
-	user_input = input("press 'x' to terminate...")
+	STOP = input("press any key to terminate...")
 	while True:
-		if user_input == 'x':
-			STOP = True
+		if STOP != None:
 			motor.stop()
 			goThread.join()
 			detectThread.join()
+			recoverThread.join()
 			motor.exit()
 			return
-
 
 
 print("Starting Py-bot..")
