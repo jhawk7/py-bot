@@ -9,7 +9,7 @@ OBJECT_DETECTED = False
 RECOVERING = False
 STOP = False
 #Constants
-MAX_DISTANCE = 40.00 #in cm
+MAX_DISTANCE = 40 #in cm
 
 #LED GPIO Pin
 LED = 18
@@ -40,7 +40,8 @@ def detect():
 		else:
 			OBJECT_DETECTED = False
 			GPIO.output(LED,GPIO.LOW)
-
+		time.sleep(0.5)
+		
 	return
 
 def go():
