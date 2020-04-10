@@ -8,7 +8,6 @@ from threading import Thread
 OBJECT_DETECTED = False
 RECOVERING = False
 STOP = False
-user_input = input()
 #Constants
 MAX_DISTANCE = 30 #in cm
 
@@ -66,12 +65,12 @@ def recover():
 	return
 
 def stop():
-	while True:
-		if user_input != None:
-			STOP = True
-			motor.stop()
-			motor.exit()
-		break
+	user_input = input()
+	if user_input != None:
+		STOP = True
+		motor.stop()
+		motor.exit()
+
 	return
 
 
@@ -81,6 +80,7 @@ goThread = Thread(target=go)
 detectThread = Thread(target=detect)
 recoverThread = Thread(target=recover)
 stopThread = Thread(target=stop)
+
 goThread.start()
 detectThread.start()
 recoverThread.start()
