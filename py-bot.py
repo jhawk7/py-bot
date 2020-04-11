@@ -42,15 +42,15 @@ def beep():
 	p.start(70)             	 # start the PWM on 70 percent duty cycle  
 
 	while not STOP:
-	#for x in range(200, 2200):
- 		#p.ChangeFrequency(x)     # change the frequency to x Hz 
+		#for x in range(200, 2200):
+ 		#p.ChangeFrequency(x)     	  # change the frequency to x Hz 
  		#time.sleep(0.0001)
  		p.ChangeFrequency(30)
  		p.ChangeFrequency(70)
  		p.ChangeFrequency(50)
     	p.stop()
     	time.sleep(10)
-	#p.stop()                     # stop the PWM output  
+		#p.stop()                     # stop the PWM output  
 	
 
 
