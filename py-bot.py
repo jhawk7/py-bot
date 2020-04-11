@@ -48,8 +48,8 @@ def beep():
  		p.ChangeFrequency(30)
  		p.ChangeFrequency(70)
  		p.ChangeFrequency(50)
-    	p.stop()
-    	time.sleep(10)
+ 		p.stop()
+ 		time.sleep(10)
 		#p.stop()                     # stop the PWM output  
 
 	return
