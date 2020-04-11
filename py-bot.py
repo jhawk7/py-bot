@@ -69,7 +69,7 @@ def recover():
 	global STOP
 
 	while not STOP:
-		while OBJECT_DETECTED:
+		if OBJECT_DETECTED:
 			RECOVERING = True
 			print("Avoiding Obstacle..")
 			motor.stop()
