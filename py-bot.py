@@ -48,7 +48,6 @@ def detect():
 
 def go():
 	global OBJECT_DETECTED
-	#global RECOVERING
 	global STOP
 
 	while not STOP:
@@ -68,7 +67,6 @@ def recover():
 
 	RECOVERING = True
 	print("Avoiding Obstacle..")
-	#motor.stop()
 	motor.backward()
 	time.sleep(0.5)
 	motor.stop()
@@ -98,22 +96,16 @@ print("Starting Py-bot..press any key to terrminate.")
 
 goThread = threading.Thread(target=go)
 detectThread = threading.Thread(target=detect)
-#recoverThread = threading.Thread(target=recover)
 stopThread = threading.Thread(target=stop)
 
 goThread.daemon = True
 detectThread.daemon = True
-#recoverThread.daemon = True
 stopThread.daemon = True
 
 goThread.start()
 detectThread.start()
-#recoverThread.start()
 stopThread.start()
 
-#goThread.join()
-#detectThread.join()
-#recoverThread.join()
 stopThread.join()
 
 print("Py-bot terminated.")
