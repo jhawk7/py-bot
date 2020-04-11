@@ -38,9 +38,9 @@ motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 
 def beep():
-	p = GPIO.PWM(speaker, 50)    # create an object p for PWM on port 25 at 50 Hertz  
 
 	while not STOP:
+		p = GPIO.PWM(speaker, 50)
 		p.start(70)
 		p.ChangeFrequency(30)
 		time.sleep(0.001)
