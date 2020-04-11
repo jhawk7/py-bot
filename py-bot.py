@@ -57,6 +57,7 @@ def go():
 			motor.forward()
 		else:
 			motor.stop()
+			time.sleep(.5)
 			recover()
 	return
 
@@ -70,13 +71,18 @@ def recover():
 	print("Avoiding Obstacle..")
 	#motor.stop()
 	motor.backward()
+	time.sleep(.5)
 	motor.stop()
+	time.sleep(.5)
 	motor.rightTurn()
+	time.sleep(.5)
 	motor.stop()
 	GPIO.output(LED,GPIO.LOW)
 	print("Obstacle Avoided..")
 	RECOVERING = False
 	OBJECT_DETECTED = False
+	time.sleep(.5)
+
 
 def stop():
 	global STOP
