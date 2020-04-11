@@ -12,7 +12,23 @@ def speakerTest():
  		time.sleep(0.0001)
     
 	p.stop()                # stop the PWM output  
-	GPIO.cleanup()          # when your program exits, tidy up after yourself
+	#GPIO.cleanup()          # when your program exits, tidy up after yourself
+
+
+def beep():
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(21, GPIO.OUT)
+	p = GPIO.PWM(21, 50)
+	p.start(70)
+	p.ChangeFrequency(30)
+	time.sleep(0.001)
+	p.ChangeFrequency(70)
+	time.sleep(0.001)
+	p.ChangeFrequency(50)
+	time.sleep(0.001)
+	p.stop()
 
 
 speakerTest()
+beep()
+GPIO.cleanup()
