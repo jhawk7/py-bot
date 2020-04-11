@@ -42,8 +42,7 @@ def detect():
 		if distance <= MAX_DISTANCE and distance != 0 and not RECOVERING:
 			OBJECT_DETECTED = True
 			GPIO.output(LED,GPIO.HIGH)
-
-		time.sleep(0.5)
+			time.sleep(0.5)
 
 	return
 
@@ -57,7 +56,7 @@ def go():
 			motor.forward()
 		else:
 			motor.stop()
-			time.sleep(.5)
+			time.sleep(0.5)
 			recover()
 	return
 
@@ -71,17 +70,17 @@ def recover():
 	print("Avoiding Obstacle..")
 	#motor.stop()
 	motor.backward()
-	time.sleep(.5)
+	time.sleep(0.5)
 	motor.stop()
-	time.sleep(.5)
+	time.sleep(0.5)
 	motor.rightTurn()
-	time.sleep(.5)
+	time.sleep(0.5)
 	motor.stop()
 	GPIO.output(LED,GPIO.LOW)
 	print("Obstacle Avoided..")
 	RECOVERING = False
 	OBJECT_DETECTED = False
-	time.sleep(.5)
+	time.sleep(0.5)
 
 
 def stop():
