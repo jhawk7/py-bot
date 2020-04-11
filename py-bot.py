@@ -32,6 +32,10 @@ sonar = Ultrasonic(TRIG, ECHO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 def detect():
+	global OBJECT_DETECTED
+	global RECOVERING
+	global STOP
+
 	while not STOP:
 		distance = sonar.ping()
 		if distance <= MAX_DISTANCE and distance != 0:
@@ -46,6 +50,10 @@ def detect():
 	return
 
 def go():
+	global OBJECT_DETECTED
+	global RECOVERING
+	global STOP
+
 	while not STOP:
 		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
@@ -54,6 +62,10 @@ def go():
 
 
 def recover():
+	global OBJECT_DETECTED
+	global RECOVERING
+	global STOP
+
 	while not STOP:
 		if OBJECT_DETECTED and RECOVERING:
 			print("Avoiding Obstacle..")
@@ -67,6 +79,8 @@ def recover():
 
 
 def stop():
+	global STOP
+
 	user_input = input()
 	if user_input != None:
 		STOP = True
