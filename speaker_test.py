@@ -12,7 +12,7 @@ def speakerTest():
  		time.sleep(0.0001)
 
  	beep()
-	p.stop()                # stop the PWM output  
+ 	p.stop()                # stop the PWM output  
 	#GPIO.cleanup()          # when your program exits, tidy up after yourself
 
 
