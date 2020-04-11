@@ -51,7 +51,8 @@ def beep():
     	p.stop()
     	time.sleep(10)
 		#p.stop()                     # stop the PWM output  
-	
+
+	return
 
 
 def detect():
