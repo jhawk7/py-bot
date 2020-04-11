@@ -42,8 +42,6 @@ def detect():
 		if distance <= MAX_DISTANCE and distance != 0 and not RECOVERING:
 			OBJECT_DETECTED = True
 			GPIO.output(LED,GPIO.HIGH)
-		else:
-			OBJECT_DETECTED = False
 
 		time.sleep(0.5)
 
@@ -51,7 +49,7 @@ def detect():
 
 def go():
 	global OBJECT_DETECTED
-	global RECOVERING
+	#global RECOVERING
 	global STOP
 
 	while not STOP:
@@ -64,6 +62,7 @@ def go():
 
 
 def recover():
+	global OBJECT_DETECTED
 	global RECOVERING
 	global STOP
 
@@ -77,7 +76,7 @@ def recover():
 	GPIO.output(LED,GPIO.LOW)
 	print("Obstacle Avoided..")
 	RECOVERING = False
-
+	OBJECT_DETECTED = False
 
 def stop():
 	global STOP
