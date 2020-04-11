@@ -49,21 +49,21 @@ def go():
 	while not STOP:
 		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
-		else:
-			recover()
+
 	return
 
 
 def recover():
-	while OBJECT_DETECTED and RECOVERING:
-		print("Avoiding Obstacle..")
-		motor.stop()
-		motor.backward()
-		motor.stop()
-		motor.rightTurn()
-		motor.stop()
-		print("Obstacle Avoided..")
-		RECOVERING = False
+	while not STOP:
+		if OBJECT_DETECTED and RECOVERING:
+			print("Avoiding Obstacle..")
+			motor.stop()
+			motor.backward()
+			motor.stop()
+			motor.rightTurn()
+			motor.stop()
+			print("Obstacle Avoided..")
+			RECOVERING = False
 
 
 def stop():
@@ -79,17 +79,17 @@ print("Starting Py-bot..press any key to terrminate.")
 
 goThread = threading.Thread(target=go)
 detectThread = threading.Thread(target=detect)
-#recoverThread = threading.Thread(target=recover)
+recoverThread = threading.Thread(target=recover)
 stopThread = threading.Thread(target=stop)
 
 goThread.daemon = True
 detectThread.daemon = True
-#recoverThread.daemon = True
+recoverThread.daemon = True
 stopThread.daemon = True
 
 goThread.start()
 detectThread.start()
-#recoverThread.start()
+recoverThread.start()
 stopThread.start()
 
 #goThread.join()
