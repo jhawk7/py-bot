@@ -7,7 +7,7 @@ def speakerTest():
 	p = GPIO.PWM(21, 50)    # create an object p for PWM on port 25 at 50 Hertz  
 	p.start(70)             # start the PWM on 70 percent duty cycle  
 
- 	for x in range(200, 2200):
+	for x in range(200, 2200):
  		p.ChangeFrequency(x)  # change the frequency to x Hz 
  		time.sleep(0.0001)
     
