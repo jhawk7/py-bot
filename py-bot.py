@@ -43,7 +43,7 @@ def beep():
 	while not STOP:
 		p.start(70)
 		p.ChangeFrequency(30)
- 		time.sleep(0.001)
+		time.sleep(0.001)
  		p.ChangeFrequency(70)
  		time.sleep(0.001)
  		p.ChangeFrequency(50)
