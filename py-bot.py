@@ -57,6 +57,8 @@ def go():
 	while not STOP:
 		if (not OBJECT_DETECTED and not RECOVERING):
 			motor.forward()
+		else:
+			motor.stop()
 
 	return
 
@@ -77,7 +79,8 @@ def recover():
 			motor.stop()
 			GPIO.output(LED,GPIO.LOW)
 			print("Obstacle Avoided..")
-			RECOVERING = False
+		
+		RECOVERING = False
 
 
 def stop():
