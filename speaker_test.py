@@ -11,8 +11,8 @@ def speakerTest():
  		p.ChangeFrequency(x)  # change the frequency to x Hz 
  		time.sleep(0.0001)
 
- 	beep()
- 	p.stop()                # stop the PWM output  
+	beep()
+	p.stop()                # stop the PWM output  
 	#GPIO.cleanup()          # when your program exits, tidy up after yourself
 
 
