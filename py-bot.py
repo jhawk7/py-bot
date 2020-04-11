@@ -16,6 +16,11 @@ LED = 18
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED,GPIO.OUT)
 
+#Speaker GPIO Pin
+speaker = 21
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(speaker, GPIO.OUT)
+
 # Sonar GPIO Pins
 TRIG = 22
 ECHO = 23
@@ -30,6 +35,23 @@ ENB = 9
 
 sonar = Ultrasonic(TRIG, ECHO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
+
+
+def beep():
+	p = GPIO.PWM(speaker, 50)    # create an object p for PWM on port 25 at 50 Hertz  
+	p.start(70)             	 # start the PWM on 70 percent duty cycle  
+
+	while not STOP:
+	#for x in range(200, 2200):
+ 		#p.ChangeFrequency(x)     # change the frequency to x Hz 
+ 		#time.sleep(0.0001)
+ 		p.ChangeFrequency(30)
+ 		p.ChangeFrequency(70)
+ 		p.ChangeFrequency(50)
+    	p.stop()
+    	time.sleep(10)
+	#p.stop()                     # stop the PWM output  
+	
 
 
 def detect():
@@ -88,7 +110,7 @@ def stop():
 	if user_input != None:
 		STOP = True
 		motor.stop()
-		motor.exit()
+		GPIO.cleanup()
 	return
 
 
@@ -97,14 +119,17 @@ print("Starting Py-bot..press any key to terrminate.")
 goThread = threading.Thread(target=go)
 detectThread = threading.Thread(target=detect)
 stopThread = threading.Thread(target=stop)
+beepThread = threading.Thread(target=beep)
 
 goThread.daemon = True
 detectThread.daemon = True
 stopThread.daemon = True
+beepThread.daemon = True
 
 goThread.start()
 detectThread.start()
 stopThread.start()
+beepThread.start()
 
 stopThread.join()
 
