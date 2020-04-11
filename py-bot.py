@@ -59,7 +59,7 @@ def go():
 			motor.forward()
 		else:
 			motor.stop()
-
+			recover()
 	return
 
 
