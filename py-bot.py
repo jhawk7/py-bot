@@ -5,9 +5,9 @@ from L298N import L298N
 import threading
 
 #Flags
-OBJECT_DETECTED = False
-RECOVERING = False
-STOP = False
+OBJECT_DETECTED = None
+RECOVERING = None
+STOP = None
 #Constants
 MAX_DISTANCE = 40 #in cm
 
