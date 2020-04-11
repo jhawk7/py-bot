@@ -2,7 +2,7 @@ import time
 import RPi.GPIO as GPIO
 from Ultrasonic import Ultrasonic
 from L298N import L298N
-from threading import Thread
+import threading
 
 #Flags
 OBJECT_DETECTED = False
@@ -77,19 +77,24 @@ def stop():
 
 print("Starting Py-bot..press any key to terrminate.")
 
-goThread = Thread(target=go)
-detectThread = Thread(target=detect)
-#recoverThread = Thread(target=recover)
-stopThread = Thread(target=stop)
+goThread = threading.Thread(target=go)
+detectThread = threading.Thread(target=detect)
+#recoverThread = threading.Thread(target=recover)
+stopThread = threading.Thread(target=stop)
+
+goThread.daemon = True
+detectThread.daemon = True
+#recoverThread.daemon = True
+stopThread.daemon = True
 
 goThread.start()
 detectThread.start()
 #recoverThread.start()
 stopThread.start()
 
-goThread.join()
-detectThread.join()
-recoverThread.join()
+#goThread.join()
+#detectThread.join()
+#recoverThread.join()
 stopThread.join()
 
 print("Py-bot terminated.")
