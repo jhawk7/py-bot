@@ -22,6 +22,17 @@ speaker = 21
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(speaker, GPIO.OUT)
 
+#notes in hz
+c4 = 261
+d4 = 294
+e4 = 329
+f4 = 349
+g4 = 392
+a4 = 440
+b4 = 493
+c5 = 523.25
+d5 = 587.33
+
 # Sonar GPIO Pins
 TRIG = 22
 ECHO = 23
@@ -39,15 +50,7 @@ motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 
 def beep():
-	c4 = 261
-	d4 = 294
-	e4 = 329
-	f4 = 349
-	g4 = 392
-	a4 = 440
-	b4 = 493
-	c5 = 523.25
-	beeps = [e4, d4, g4, b4, a4]
+	beeps = [e4, d4, g4, d5, a4]
 	p = GPIO.PWM(speaker, 50)
 	p.start(10)
 

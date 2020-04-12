@@ -9,6 +9,7 @@ g4 = 392
 a4 = 440
 b4 = 493
 c5 = 523.25
+d5 = 587.33
 
 #speaker GPIO Pin
 speaker = 21
@@ -38,7 +39,7 @@ def beepTest():
 	p.start(10)
 
 	#beeps = [c4, d4, e4, f4, g4, a4, b4, c5]
-	beeps = [e4, d4, g4, c5, a4]
+	beeps = [e4, d4, g4, d5, a4]
 
 	for note in beeps:
 		p.ChangeFrequency(note)
