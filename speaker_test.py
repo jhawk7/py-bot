@@ -13,17 +13,21 @@ c5 = 523.25
 #speaker GPIO Pin
 speaker = 21
 
-GPIO.setmode(GPIO.BCM)  # choose BCM or BOARD numbering schemes. I use BCM  
-GPIO.setup(speaker, GPIO.OUT) # set GPIO 25 as an output. You can use any GPIO port
+# choose BCM or BOARD numbering schemes. I use BCM  
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(speaker, GPIO.OUT)
 
 
-def speakerTest():  
-	p = GPIO.PWM(speaker, 50)    # create an object p for PWM on port 25 at 50 Hertz  
-	p.start(70)             # start the PWM on 70 percent duty cycle - defines the amount of time a signal is high (square wave)  
+def speakerTest():
+	# create an object p for PWM on port 25 at 50 Hertz  
+	p = GPIO.PWM(speaker, 50)
+	# start the PWM on 70 percent duty cycle - defines the amount of time a signal is high (square wave)  
+	p.start(70)
 
 	for x in range(200, 2200):
- 		p.ChangeFrequency(x)  # change the frequency to x Hz 
- 		time.sleep(0.0001)
+		# change the frequency to x Hz
+		p.ChangeFrequency(x)
+		time.sleep(0.0001)
 
  	p.stop()
 
