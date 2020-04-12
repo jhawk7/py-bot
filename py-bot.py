@@ -50,7 +50,7 @@ motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 
 def beep():
-	beeps = [e4, d4, g4, d5, a4]
+	beeps = [e4, d4, d5, a4]
 	p = GPIO.PWM(speaker, 100)
 
 	while not STOP:
