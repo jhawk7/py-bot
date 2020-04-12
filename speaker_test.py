@@ -29,7 +29,7 @@ def speakerTest():
 		p.ChangeFrequency(x)
 		time.sleep(0.0001)
 
- 	p.stop()
+	p.stop()
 
 
 
