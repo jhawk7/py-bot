@@ -35,7 +35,7 @@ def speakerTest():
 
 def beepTest():
 	p = GPIO.PWM(speaker, 50)
-	p.start(70)
+	p.start(10)
 
 	beeps = [c4, d4, e4, f4, g4, a4, b4, c5]
 
