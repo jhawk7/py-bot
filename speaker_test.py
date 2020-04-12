@@ -37,7 +37,8 @@ def beepTest():
 	p = GPIO.PWM(speaker, 50)
 	p.start(10)
 
-	beeps = [c4, d4, e4, f4, g4, a4, b4, c5]
+	#beeps = [c4, d4, e4, f4, g4, a4, b4, c5]
+	beeps = [e4, d4, g4, b4, a4]
 
 	for note in beeps:
 		p.ChangeFrequency(note)

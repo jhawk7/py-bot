@@ -8,6 +8,7 @@ import threading
 OBJECT_DETECTED = None
 RECOVERING = None
 STOP = None
+
 #Constants
 MAX_DISTANCE = 40 #in cm
 
@@ -38,20 +39,26 @@ motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 
 def beep():
+	c4 = 261
+	d4 = 294
+	e4 = 329
+	f4 = 349
+	g4 = 392
+	a4 = 440
+	b4 = 493
+	c5 = 523.25
+	beeps = [e4, d4, g4, b4, a4]
+	p = GPIO.PWM(speaker, 50)
+	p.start(10)
 
 	while not STOP:
-		p = GPIO.PWM(speaker, 50)
-		p.start(70)
-		p.ChangeFrequency(30)
-		time.sleep(0.001)
-		p.ChangeFrequency(70)
-		time.sleep(0.001)
-		p.ChangeFrequency(50)
-		time.sleep(0.001)
-		p.stop()
-		time.sleep(10)
-		#p.stop()                     # stop the PWM output  
+		for beep in beeps:
+			p.ChangeFrequency(beep)
+			time.sleep(0.1)
 
+		time.sleep(10)
+
+	p.stop()
 	return
 
 
