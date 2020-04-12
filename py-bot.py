@@ -60,7 +60,7 @@ def beep():
 			time.sleep(0.1)
 
 		p.stop()
-		time.sleep(10)
+		time.sleep(20)
 
 	return
 
