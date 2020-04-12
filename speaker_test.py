@@ -19,7 +19,7 @@ GPIO.setup(speaker, GPIO.OUT)
 
 
 def speakerTest():
-	# create an object p for PWM on port 25 at 50 Hertz  
+	# create an object p for PWM on port 21 at 50 Hertz  
 	p = GPIO.PWM(speaker, 50)
 	# start the PWM on 70 percent duty cycle - defines the amount of time a signal is high (square wave)  
 	p.start(70)
@@ -34,7 +34,7 @@ def speakerTest():
 
 
 def beepTest():
-	p = GPIO.PWM(speaker, 100)
+	p = GPIO.PWM(speaker, 50)
 	p.start(10)
 
 	beeps = [c4, d4, e4, f4, g4, a4, b4, c5]
