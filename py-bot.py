@@ -125,25 +125,27 @@ def stop():
 	return
 
 
-print("Starting Py-bot..press any key to terrminate.")
+def main():
+	print("Starting Py-bot..press any key to terrminate.")
+	goThread = threading.Thread(target=go)
+	detectThread = threading.Thread(target=detect)
+	stopThread = threading.Thread(target=stop)
+	beepThread = threading.Thread(target=beep)
 
-goThread = threading.Thread(target=go)
-detectThread = threading.Thread(target=detect)
-stopThread = threading.Thread(target=stop)
-beepThread = threading.Thread(target=beep)
+	goThread.daemon = True
+	detectThread.daemon = True
+	stopThread.daemon = True
+	beepThread.daemon = True
 
-goThread.daemon = True
-detectThread.daemon = True
-stopThread.daemon = True
-beepThread.daemon = True
+	goThread.start()
+	detectThread.start()
+	stopThread.start()
+	beepThread.start()
 
-goThread.start()
-detectThread.start()
-stopThread.start()
-beepThread.start()
+	stopThread.join()
 
-stopThread.join()
-
-print("Py-bot terminated.")
+	print("Py-bot terminated.")
 
 
+if __name__ == '__main__':
+	main()

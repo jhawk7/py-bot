@@ -24,8 +24,8 @@ class L298N:
         GPIO.output(in3,GPIO.LOW)
         GPIO.output(in4,GPIO.LOW)
 
-        pwm_ena=GPIO.PWM(ena,1000)
-        pwm_enb=GPIO.PWM(enb,1000)
+        pwm_ena=GPIO.PWM(ena,1000) #sets ena pin to 1000HZ
+        pwm_enb=GPIO.PWM(enb,1000) #sets enb pin to 1000Hz
         #Default speed is low and forward
         # low=25, med=50, high=75
         pwm_ena.start(50)
