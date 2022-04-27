@@ -1,3 +1,4 @@
+import sys
 import time
 import RPi.GPIO as GPIO
 from UltrasonicServo import UltrasonicServo
@@ -52,30 +53,33 @@ sonar_servo = UltrasonicServo(TRIG, ECHO, MIN_DISTANCE, SERVO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 def beep():
-	beeps = [e4, d4, d5, a4]
-	p = GPIO.PWM(speaker, 100)
-
-	while not STOP:
-		p.start(10)
-		for beep in beeps:
-			p.ChangeFrequency(beep)
-			time.sleep(0.1)
-
-		p.stop()
-		time.sleep(15)
-
-	return
+    global STOP
+    beeps = [e4, d4, d5, a4]
+    p = GPIO.PWM(speaker, 100)
+    while True:
+        if STOP:
+            break
+        p.start(10)
+        for beep in beeps:
+            p.ChangeFrequency(beep)
+            time.sleep(0.1)
+        
+        p.stop()
+        time.sleep(15)
+    return
 
 def detect():
 	global OBJECT_DETECTED
 	global RECOVERING
 	global STOP
 
-	while not STOP:
+	while True:
+		if STOP:
+			break
 		OBJECT_DETECTED = sonar_servo.objectDetected()
 		if OBJECT_DETECTED and not RECOVERING:
 			GPIO.output(LED,GPIO.HIGH)
-			time.sleep(0.5)
+			time.sleep(0.5)	
 	return
 
 def go():
@@ -83,7 +87,9 @@ def go():
 	global STOP
 	global RECOVERING
 
-	while not STOP:
+	while True:
+		if STOP:
+			break
 		if (not OBJECT_DETECTED):
 			motor.forward()
 		else:
@@ -135,6 +141,7 @@ def stop():
 
 def main():
 	print("Starting py-bot..press any key to terrminate.")
+	GPIO.setwarnings(False)
 	goThread = threading.Thread(target=go)
 	detectThread = threading.Thread(target=detect)
 	stopThread = threading.Thread(target=stop)
@@ -151,9 +158,11 @@ def main():
 	beepThread.start()
 
 	stopThread.join()
-
+	goThread.join()
+	detectThread.join()
+	beepThread.join()
 	print("py-bot terminated.")
-
+	sys.exit()
 
 if __name__ == '__main__':
 	main()
