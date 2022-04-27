@@ -17,7 +17,7 @@ def testServo():
 
     for cycle in cycles:
         p.ChangeDutyCycle(cycle)
-        time.sleep(2)
+        time.sleep(1)
     
     p.stop()
     GPIO.cleanup()
