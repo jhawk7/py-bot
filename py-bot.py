@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from Ultrasonic import Ultrasonic
+from UltrasonicServo import UltrasonicServo
 from L298N import L298N
 import threading
 
@@ -10,7 +10,7 @@ RECOVERING = None
 STOP = None
 
 #Constants
-MAX_DISTANCE = 40 #in cm
+MIN_DISTANCE = 40 #in cm
 
 #LED GPIO Pin
 LED = 18
@@ -37,6 +37,9 @@ d5 = 587.33
 TRIG = 22
 ECHO = 23
 
+# Sonar Servo Pin
+SERVO = 14
+
 # L298N GPIO Pins
 IN1 = 17
 IN2 = 27
@@ -45,9 +48,8 @@ IN4 = 25
 ENA = 10
 ENB = 9
 
-sonar = Ultrasonic(TRIG, ECHO)
+sonar_servo = UltrasonicServo(TRIG, ECHO, MIN_DISTANCE, SERVO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
-
 
 def beep():
 	beeps = [e4, d4, d5, a4]
@@ -64,24 +66,22 @@ def beep():
 
 	return
 
-
 def detect():
 	global OBJECT_DETECTED
 	global RECOVERING
 	global STOP
 
 	while not STOP:
-		distance = sonar.ping()
-		if distance <= MAX_DISTANCE and distance != 0 and not RECOVERING:
-			OBJECT_DETECTED = True
+		OBJECT_DETECTED = sonar_servo.objectDetected()
+		if OBJECT_DETECTED and not RECOVERING:
 			GPIO.output(LED,GPIO.HIGH)
 			time.sleep(0.5)
-
 	return
 
 def go():
 	global OBJECT_DETECTED
 	global STOP
+	global RECOVERING
 
 	while not STOP:
 		if (not OBJECT_DETECTED):
@@ -89,29 +89,37 @@ def go():
 		else:
 			motor.stop()
 			time.sleep(0.5)
+			RECOVERING = True
 			recover()
 	return
 
 
 def recover():
-	global OBJECT_DETECTED
-	global RECOVERING
-	global STOP
-
-	RECOVERING = True
-	print("Avoiding Obstacle..")
-	motor.backward()
-	time.sleep(0.5)
-	motor.stop()
-	time.sleep(0.5)
-	motor.rightTurn()
-	time.sleep(0.5)
-	motor.stop()
-	GPIO.output(LED,GPIO.LOW)
-	print("Obstacle Avoided..")
-	RECOVERING = False
-	OBJECT_DETECTED = False
-	time.sleep(0.5)
+    global OBJECT_DETECTED
+    global RECOVERING
+    global STOP
+    
+    print("Avoiding Obstacle..")
+    motor.backward()
+    time.sleep(0.5)
+    motor.stop()
+    time.sleep(0.5)
+    
+    if sonar_servo.checkRight():
+        motor.rightTurn()
+        time.sleep(0.5)
+    elif sonar_servo.checkLeft():
+        motor.leftTurn()
+        time.sleep(0.5)
+    else:
+        motor.turnAround()
+        time.sleep(0.5)
+    
+    GPIO.output(LED,GPIO.LOW)
+    print("Obstacle Avoided..")
+    RECOVERING = False
+    OBJECT_DETECTED = False
+    time.sleep(0.5)
 
 
 def stop():
@@ -126,7 +134,7 @@ def stop():
 
 
 def main():
-	print("Starting Py-bot..press any key to terrminate.")
+	print("Starting py-bot..press any key to terrminate.")
 	goThread = threading.Thread(target=go)
 	detectThread = threading.Thread(target=detect)
 	stopThread = threading.Thread(target=stop)
@@ -144,7 +152,7 @@ def main():
 
 	stopThread.join()
 
-	print("Py-bot terminated.")
+	print("py-bot terminated.")
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from Ultrasonic import Ultrasonic
+from UltrasonicServo import UltrasonicServo
 
 MIN_DISTANCE = 2 #value in cm
 
@@ -9,7 +9,7 @@ def sonarTest(trigger, echo):
 	LED = 18
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(LED,GPIO.OUT)
-	sonar = Ultrasonic(trigger, echo)
+	sonar = UltrasonicServo(trigger, echo)
 
 	while True:
 		try:

@@ -1,22 +1,23 @@
 import RPi.GPIO as GPIO
-import os, signal
-
+from Servo import Servo
 from time import sleep, time
 
-class Ultrasonic():
-    # Ultrasonic sensor class 
+class UltrasonicServo():
+    # UltrasonicServo sensor class 
     
-    def __init__(self, TRIG, ECHO, offset = 0.5):
+    def __init__(self, TRIG, ECHO, MIN_DIST=0, SERVO=14, offset = 0.5):
         # Create a new sensor instance
         self.TRIG = TRIG
         self.ECHO = ECHO
+        self.MIN_DIST = MIN_DIST
+        self.servo = Servo(SERVO)
         self.offset = offset            # Sensor calibration factor
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.TRIG, GPIO.OUT)                  
         GPIO.setup(self.ECHO, GPIO.IN)                   
 
 
-    def ping(self):
+    def objectDetected(self):
         # Get distance measurement
         GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
         sleep(0.1)                                  # Min gap between measurements        
@@ -42,5 +43,24 @@ class Ultrasonic():
         else:
             distance = 0
             print("No obstacle")                         
-        return distance
+        
+        if distance <= self.MIN_DIST and distance != 0:
+            return True
+        else:
+            return False
+    
+    def checkLeft(self):
+        self.servo.turnLeft()
+        left = self.objectDetected()
+        self.servo.center()
+        return left
+    
+    def checkRight(self):
+        self.servo.turnRight()
+        right = self.objectDetected()
+        self.servo.center()
+        return right
+        
+        
+        
 

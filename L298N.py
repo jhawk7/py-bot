@@ -80,7 +80,7 @@ class L298N:
         time.sleep(1.25)
         self.stop()
 
-    def turn(self):
+    def turnAround(self):
         #180 degree 0 radius turn
         GPIO.output(self.in1,GPIO.HIGH)
         GPIO.output(self.in2,GPIO.LOW)
