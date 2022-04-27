@@ -8,11 +8,16 @@ GPIO.setup(servoPIN, GPIO.OUT)
 def testServo():
     p = GPIO.PWM(servoPIN, 50) #sets servoPin to 50Hz
     p.start(2.5)
-    cycles = [5, 7.5, 10, 12.5, 10, 7.5, 5, 2.5]
+    mid = 7.5
+    left_pivot = 10
+    right_pivot = 5
+    left = 12.5
+    right = 2.5
+    cycles = [mid, left_pivot, left, left_pivot, mid, right_pivot, right, right_pivot, mid]
 
     for cycle in cycles:
         p.ChangeDutyCycle(cycle)
-        time.sleep(0.5)
+        time.sleep(2)
     
     p.stop()
     GPIO.cleanup()
