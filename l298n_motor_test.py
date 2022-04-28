@@ -1,4 +1,4 @@
-from ..L298N import L298N
+from L298N import L298N
 import time
 
 def setMotors(in1, in2, in3, in4, ena, enb):

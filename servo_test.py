@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from ..Servo import Servo
+from Servo import Servo
 
 servoPIN = 14
 #GPIO.setmode(GPIO.BCM)
