@@ -15,13 +15,16 @@ class Servo():
     def turnRight(self):
         self.servo.start(2.5)
         self.servo.ChangeDutyCycle(self.right)
+        self.servo.stop()
     
     def turnLeft(self):
         self.servo.start(2.5)
         self.servo.ChangeDutyCycle(self.left)
+        self.servo.stop()
     
     def center(self):
         self.servo.start(2.5)
         self.servo.ChangeDutyCycle(self.mid)
+        self.servo.stop()
 
     
