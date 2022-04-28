@@ -119,19 +119,19 @@ def recover():
         
         if not sonar_servo.checkRight():
             motor.rightTurn()
-            time.sleep(0.5)
+            time.sleep(2)
         elif not sonar_servo.checkLeft():
             motor.leftTurn()
-            time.sleep(0.5)
+            time.sleep(2)
         else:
             motor.turnAround()
-            time.sleep(0.5)
+            time.sleep(2)
         
         GPIO.output(LED,GPIO.LOW)
         print("Obstacle Avoided..")
         RECOVERING = False
         OBJECT_DETECTED = False
-        time.sleep(0.5)
+        time.sleep(2)
 
 
 def stop():
