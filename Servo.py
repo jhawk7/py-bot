@@ -10,20 +10,18 @@ class Servo():
         self.right = 2.5
         self.left_pivot = 10
         self.right_pivot = 5
-
+        self.servo = GPIO.PWM(self.pin, 50) #sets servoPin to 50Hz
+        
     def turnRight(self):
-        servo = GPIO.PWM(self.pin, 50) #sets servoPin to 50Hz
-        servo.start(2.5)
-        servo.ChangeDutyCycle(self.right)
+        self.servo.start(2.5)
+        self.servo.ChangeDutyCycle(self.right)
     
     def turnLeft(self):
-        servo = GPIO.PWM(self.pin, 50) #sets servoPin to 50Hz
-        servo.start(2.5)
-        servo.ChangeDutyCycle(self.left)
+        self.servo.start(2.5)
+        self.servo.ChangeDutyCycle(self.left)
     
     def center(self):
-        servo = GPIO.PWM(self.pin, 50) #sets servoPin to 50Hz
-        servo.start(2.5)
-        servo.ChangeDutyCycle(self.mid)
+        self.servo.start(2.5)
+        self.servo.ChangeDutyCycle(self.mid)
 
     
