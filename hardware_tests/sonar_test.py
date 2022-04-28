@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from UltrasonicServo import UltrasonicServo
+from ..UltrasonicServo import UltrasonicServo
 
 MIN_DISTANCE = 2 #value in cm
 
@@ -13,8 +13,8 @@ def sonarTest(trigger, echo):
 
 	while True:
 		try:
-			distance = sonar.ping()
-			if distance > MIN_DISTANCE:
+			objectDetected = sonar.objectDetected()
+			if objectDetected:
 				#LED will turn on when object is detected 
 				GPIO.output(LED,GPIO.HIGH)
 			else:
