@@ -39,7 +39,7 @@ class UltrasonicServo():
 
         if distance > 2 and distance < 400:              
             distance = distance + self.offset
-            print("Obstacle Distance: #{distance} cm")
+            print(f'Obstacle Distance: {distance} cm')
         else:
             distance = 0
             #print("No obstacle")                         
