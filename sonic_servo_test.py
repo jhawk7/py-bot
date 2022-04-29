@@ -16,6 +16,7 @@ def lookTest():
     right = sonar_servo.checkRight()
     print("Object detected on right") if right else print("No object on right")
     return
+#
 
 lookTest()
 GPIO.cleanup()

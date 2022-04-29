@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from Servo import Servo
-from time import sleep, time
+import time
 
 class UltrasonicServo():
     # UltrasonicServo sensor class 
