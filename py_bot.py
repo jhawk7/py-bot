@@ -121,12 +121,15 @@ def recover():
         time.sleep(0.5)
         
         if not sonar_servo.checkRight():
+            print("turning right..")
             motor.rightTurn()
             time.sleep(1)
         elif not sonar_servo.checkLeft():
+            print("turning left..")
             motor.leftTurn()
             time.sleep(1)
         else:
+            print("turning around..")
             motor.turnAround()
             time.sleep(1)
         
