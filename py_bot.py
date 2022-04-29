@@ -68,6 +68,7 @@ def beep():
         time.sleep(15)
     return
 
+
 def detect():
 	global OBJECT_DETECTED
 	global RECOVERING
@@ -84,6 +85,7 @@ def detect():
 			GPIO.output(LED,GPIO.LOW)
 			time.sleep(0.5)
 	return
+
 
 def go():
 	global OBJECT_DETECTED
@@ -119,13 +121,13 @@ def recover():
         
         if not sonar_servo.checkRight():
             motor.rightTurn()
-            time.sleep(2)
+            time.sleep(1)
         elif not sonar_servo.checkLeft():
             motor.leftTurn()
-            time.sleep(2)
+            time.sleep(1)
         else:
             motor.turnAround()
-            time.sleep(2)
+            time.sleep(1)
         
         GPIO.output(LED,GPIO.LOW)
         print("Obstacle Avoided..")

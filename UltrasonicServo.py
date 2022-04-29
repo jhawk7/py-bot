@@ -14,7 +14,6 @@ class UltrasonicServo():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.TRIG, GPIO.OUT)                  
         GPIO.setup(self.ECHO, GPIO.IN)                   
-        self.reset()
 
     def objectDetected(self):
         # Get distance measurement
