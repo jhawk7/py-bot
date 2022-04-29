@@ -28,8 +28,8 @@ class L298N:
         pwm_enb=GPIO.PWM(enb,1000) #sets enb pin to 1000Hz
         #Default speed is low and forward
         # low=25, med=50, high=75
-        pwm_ena.start(50)
-        pwm_enb.start(50)
+        pwm_ena.start(25)
+        pwm_enb.start(25)
 
 
     def forward(self):
