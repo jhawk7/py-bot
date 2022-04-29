@@ -64,7 +64,11 @@ class UltrasonicServo():
         self.servo.center()
         sleep(1)
         return right
-        
-        
-        
+
+    def checkCenter(self):
+        self.servo.center()
+        sleep(2)
+        center = self.objectDetected()
+        sleep(1)
+        return center
 
