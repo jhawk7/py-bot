@@ -143,6 +143,7 @@ def stop():
 	user_input = input()
 	if user_input != None:
 		STOP = True
+		print("stopping..")
 		motor.stop()
 		sonar_servo.reset()
 		GPIO.cleanup()
