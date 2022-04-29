@@ -75,15 +75,16 @@ def detect():
 	global STOP
 
 	while True:
-		if STOP:
-			break
-		OBJECT_DETECTED = sonar_servo.objectDetected()
-		if OBJECT_DETECTED and not RECOVERING:
-			GPIO.output(LED,GPIO.HIGH)
-			time.sleep(0.5)	
-		else:
-			GPIO.output(LED,GPIO.LOW)
-			time.sleep(0.5)
+		while not RECOVERING:
+			if STOP:
+				break
+			OBJECT_DETECTED = sonar_servo.objectDetected()
+			if OBJECT_DETECTED:
+				GPIO.output(LED,GPIO.HIGH)
+				time.sleep(0.5)	
+			else:
+				GPIO.output(LED,GPIO.LOW)
+				time.sleep(0.5)
 	return
 
 
@@ -93,27 +94,27 @@ def go():
 	global RECOVERING
 
 	while True:
-		if STOP:
-			break
-		if (not OBJECT_DETECTED) and (not RECOVERING):
-			motor.forward()
-		else:
-			motor.stop()
-			time.sleep(0.5)
-			RECOVERING = True
-			recover()
+		while (not OBJECT_DETECTED) and (not RECOVERING):
+			if STOP:
+				break
+			if OBJECT_DETECTED:
+				motor.stop()
+				time.sleep(0.5)
+				RECOVERING = True
+				recover()
+			else:
+				motor.forward()
 	return
 
 
 def recover():
-    global OBJECT_DETECTED
     global RECOVERING
     global STOP
     
     while RECOVERING:
         if STOP:
             break
-        print("Avoiding Obstacle..")
+        print("taking evasive maneuvers..")
         motor.backward()
         time.sleep(0.5)
         motor.stop()
@@ -129,11 +130,9 @@ def recover():
             motor.turnAround()
             time.sleep(1)
         
-        GPIO.output(LED,GPIO.LOW)
-        print("Obstacle Avoided..")
         RECOVERING = False
-        OBJECT_DETECTED = False
-        time.sleep(2)
+        print("path clear..")
+        time.sleep(1)
 
 
 def stop():
