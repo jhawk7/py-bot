@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from Servo import Servo
-import time
+from time import sleep, time
 
 class UltrasonicServo():
     # UltrasonicServo sensor class 
@@ -20,10 +20,10 @@ class UltrasonicServo():
     def objectDetected(self):
         # Get distance measurement
         GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
-        time.sleep(0.1)                                  # Min gap between measurements        
+        sleep(0.1)                                  # Min gap between measurements        
         # Create 10 us pulse on TRIG
         GPIO.output(self.TRIG, GPIO.HIGH)           # Set TRIG HIGH
-        time.sleep(0.00001)                              # Delay 10 us
+        sleep(0.00001)                              # Delay 10 us
         GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
         # Measure return echo pulse duration
         while GPIO.input(self.ECHO) == GPIO.LOW:    
@@ -51,18 +51,18 @@ class UltrasonicServo():
     
     def checkLeft(self):
         self.servo.turnLeft()
-        time.sleep(2)
+        sleep(2)
         left = self.objectDetected()
         self.servo.center()
-        time.sleep(1)
+        sleep(1)
         return left
     
     def checkRight(self):
         self.servo.turnRight()
-        time.sleep(2)
+        sleep(2)
         right = self.objectDetected()
         self.servo.center()
-        time.sleep(1)
+        sleep(1)
         return right
         
         
