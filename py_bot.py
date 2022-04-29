@@ -75,9 +75,9 @@ def detect():
 	global STOP
 
 	while True:
+		if STOP:
+			break
 		while not RECOVERING:
-			if STOP:
-				break
 			OBJECT_DETECTED = sonar_servo.objectDetected()
 			if OBJECT_DETECTED:
 				GPIO.output(LED,GPIO.HIGH)
@@ -94,9 +94,9 @@ def go():
 	global RECOVERING
 
 	while True:
-		while (not OBJECT_DETECTED) and (not RECOVERING):
-			if STOP:
-				break
+		if STOP:
+			break
+		while not RECOVERING:
 			if OBJECT_DETECTED:
 				motor.stop()
 				time.sleep(0.5)
