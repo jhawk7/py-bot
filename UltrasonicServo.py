@@ -20,10 +20,10 @@ class UltrasonicServo():
     def objectDetected(self):
         # Get distance measurement
         GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
-        sleep(0.1)                                  # Min gap between measurements        
+        time.sleep(0.1)                                  # Min gap between measurements        
         # Create 10 us pulse on TRIG
         GPIO.output(self.TRIG, GPIO.HIGH)           # Set TRIG HIGH
-        sleep(0.00001)                              # Delay 10 us
+        time.sleep(0.00001)                              # Delay 10 us
         GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
         # Measure return echo pulse duration
         while GPIO.input(self.ECHO) == GPIO.LOW:    
