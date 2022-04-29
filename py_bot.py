@@ -75,8 +75,8 @@ def detect():
 	global STOP
 
 	while True:
-     	while not RECOVERING:
-      		if STOP:
+		while not RECOVERING:
+			if STOP:
 				break
 			OBJECT_DETECTED = sonar_servo.objectDetected()
 			if OBJECT_DETECTED:
