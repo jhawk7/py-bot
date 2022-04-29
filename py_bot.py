@@ -136,11 +136,11 @@ def recover():
 
 def stop():
 	global STOP
-
 	user_input = input()
 	if user_input != None:
 		STOP = True
 		motor.stop()
+		sonar_servo.reset()
 		GPIO.cleanup()
 	return
 
@@ -157,7 +157,7 @@ def main():
 	detectThread.daemon = True
 	stopThread.daemon = True
 	beepThread.daemon = True
-
+	
 	goThread.start()
 	detectThread.start()
 	stopThread.start()
