@@ -6,9 +6,9 @@ from L298N import L298N
 import threading
 
 #Flags
-OBJECT_DETECTED = None
-RECOVERING = None
-STOP = None
+OBJECT_DETECTED = False
+RECOVERING = False
+STOP = False
 
 #Constants
 MIN_DISTANCE = 40 #in cm
@@ -75,8 +75,8 @@ def detect():
 	global STOP
 
 	while True:
-		while not RECOVERING:
-			if STOP:
+     	while not RECOVERING:
+      		if STOP:
 				break
 			OBJECT_DETECTED = sonar_servo.objectDetected()
 			if OBJECT_DETECTED:
