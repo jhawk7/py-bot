@@ -3,7 +3,6 @@ from Servo import Servo
 from time import sleep, time
 
 class UltrasonicServo():
-    # UltrasonicServo sensor class 
     
     def __init__(self, TRIG, ECHO, MIN_DIST=0, SERVO=14, offset = 0.5):
         # Create a new sensor instance
