@@ -16,8 +16,8 @@ def lookTest():
     right = sonar_servo.checkRight()
     print("Object detected on right") if right else print("No object on right")
     time.sleep(1)
-    center = sonar_servo.checkCenter()
-    print("Object detected on center") if center else print("No object on center")
+    center = sonar_servo.checkFront()
+    print("Object detected on center") if center else print("No object in front")
     return
 #
 

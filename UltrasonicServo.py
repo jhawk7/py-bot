@@ -53,7 +53,7 @@ class UltrasonicServo():
         self.servo.turnLeft()
         sleep(2)
         left = self.objectDetected()
-        self.servo.center()
+        self.servo.front()
         sleep(1)
         return left
     
@@ -61,14 +61,14 @@ class UltrasonicServo():
         self.servo.turnRight()
         sleep(2)
         right = self.objectDetected()
-        self.servo.center()
+        self.servo.front()
         sleep(1)
         return right
 
-    def checkCenter(self):
-        self.servo.center()
+    def checkFront(self):
+        self.servo.front()
         sleep(2)
-        center = self.objectDetected()
+        front = self.objectDetected()
         sleep(1)
-        return center
+        return front
 

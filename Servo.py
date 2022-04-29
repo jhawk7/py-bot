@@ -19,7 +19,7 @@ class Servo():
     def turnLeft(self):
         self.servo.ChangeDutyCycle(self.left)
     
-    def center(self):
+    def front(self):
         self.servo.ChangeDutyCycle(self.mid)
 
     
