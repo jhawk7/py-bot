@@ -1,8 +1,8 @@
 import sys
 import time
 import RPi.GPIO as GPIO
-from UltrasonicServo import UltrasonicServo
-from L298N import L298N
+from Pkg.UltrasonicServo import UltrasonicServo
+from Pkg.L298N import L298N
 import threading
 
 #Flags
@@ -53,20 +53,20 @@ sonar_servo = UltrasonicServo(TRIG, ECHO, MIN_DISTANCE, SERVO)
 motor = L298N(IN1, IN2, IN3, IN4, ENA, ENB)
 
 def beep():
-    global STOP
-    beeps = [e4, d4, d5, a4]
-    p = GPIO.PWM(speaker, 100)
-    while True:
-        if STOP:
-            break
-        p.start(10)
-        for beep in beeps:
-            p.ChangeFrequency(beep)
-            time.sleep(0.1)
-        
-        p.stop()
-        time.sleep(15)
-    return
+	global STOP
+	beeps = [e4, d4, d5, a4]
+	p = GPIO.PWM(speaker, 100)
+	while True:
+		if STOP:
+			break
+		p.start(10)
+		for beep in beeps:
+			p.ChangeFrequency(beep)
+			time.sleep(0.1)
+		
+		p.stop()
+		time.sleep(15)
+	return
 
 
 def detect():
@@ -108,34 +108,34 @@ def go():
 
 
 def recover():
-    global RECOVERING
-    global STOP
-    
-    while RECOVERING:
-        if STOP:
-            break
-        print("taking evasive maneuvers..")
-        motor.backward()
-        time.sleep(0.5)
-        motor.stop()
-        time.sleep(0.5)
-        
-        if not sonar_servo.checkRight():
-            print("turning right..")
-            motor.rightTurn()
-            time.sleep(1)
-        elif not sonar_servo.checkLeft():
-            print("turning left..")
-            motor.leftTurn()
-            time.sleep(1)
-        else:
-            print("turning around..")
-            motor.turnAround()
-            time.sleep(1)
-        
-        RECOVERING = False
-        print("path clear..")
-        time.sleep(1)
+	global RECOVERING
+	global STOP
+	
+	while RECOVERING:
+		if STOP:
+			break
+		print("taking evasive maneuvers..")
+		motor.backward()
+		time.sleep(0.5)
+		motor.stop()
+		time.sleep(0.5)
+		
+		if not sonar_servo.checkRight():
+			print("turning right..")
+			motor.rightTurn()
+			time.sleep(1)
+		elif not sonar_servo.checkLeft():
+			print("turning left..")
+			motor.leftTurn()
+			time.sleep(1)
+		else:
+			print("turning around..")
+			motor.turnAround()
+			time.sleep(1)
+	
+		RECOVERING = False
+		print("path clear..")
+		time.sleep(1)
 
 
 def stop():

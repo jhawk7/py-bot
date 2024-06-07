@@ -1,20 +1,20 @@
 import time
 import RPi.GPIO as GPIO
-from Servo import Servo
+from Pkg.Servo import Servo
 
 servoPIN = 14
 
 def testServo():
     servo = Servo(servoPIN)
-    servo.center()
+    servo.front()
     time.sleep(1)
     servo.turnLeft()
     time.sleep(1)
-    servo.center()
+    servo.front()
     time.sleep(1)
     servo.turnRight()
     time.sleep(1)
-    servo.center()
+    servo.front()
     time.sleep(1)
     
    # p.stop()
