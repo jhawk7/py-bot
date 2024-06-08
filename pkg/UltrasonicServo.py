@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from Servo import Servo
+from pkg.Servo import Servo
 from time import sleep, time
 
 class UltrasonicServo():
