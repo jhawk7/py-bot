@@ -1,8 +1,8 @@
 import sys
 import time
 import RPi.GPIO as GPIO
-from Pkg.UltrasonicServo import UltrasonicServo
-from Pkg.L298N import L298N
+from pkg.UltrasonicServo import UltrasonicServo
+from pkg.L298N import L298N
 import threading
 
 #Flags

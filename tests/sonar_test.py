@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from Pkg.UltrasonicServo import UltrasonicServo
+from pkg.UltrasonicServo import UltrasonicServo
 
 MIN_DISTANCE = 2 #value in cm
 

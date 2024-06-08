@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from Pkg.Servo import Servo
+from pkg.Servo import Servo
 
 servoPIN = 14
 
