@@ -1,4 +1,4 @@
-from Pkg.UltrasonicServo import UltrasonicServo
+from pkg.UltrasonicServo import UltrasonicServo
 import time
 import RPi.GPIO as GPIO
 
