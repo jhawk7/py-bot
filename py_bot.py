@@ -79,12 +79,7 @@ def detect():
 			break
 		while not RECOVERING:
 			OBJECT_DETECTED = sonar_servo.objectDetected()
-			if OBJECT_DETECTED:
-				GPIO.output(LED,GPIO.HIGH)
-				time.sleep(0.5)	
-			else:
-				GPIO.output(LED,GPIO.LOW)
-				time.sleep(0.5)
+			time.sleep(0.1)
 	return
 
 
@@ -99,9 +94,11 @@ def go():
 		while not RECOVERING:
 			if OBJECT_DETECTED:
 				motor.stop()
-				time.sleep(0.5)
+				GPIO.output(LED,GPIO.HIGH)
+				time.sleep(0.2)
 				RECOVERING = True
 				recover()
+				GPIO.output(LED,GPIO.LOW)
 			else:
 				motor.forward()
 	return
@@ -136,17 +133,20 @@ def recover():
 		RECOVERING = False
 		print("path clear..")
 		time.sleep(1)
+	return
 
 
 def stop():
 	global STOP
-	user_input = input()
-	if user_input != None:
-		STOP = True
-		print("stopping..")
-		motor.stop()
-		sonar_servo.reset()
-		GPIO.cleanup()
+	while True:
+		user_input = input()
+		if user_input != None:
+			STOP = True
+			print("stopping..")
+			motor.stop()
+			sonar_servo.reset()
+			GPIO.cleanup()
+		time.sleep(1)
 	return
 
 
