@@ -24,7 +24,7 @@ class UltrasonicServo():
     sleep(0.00001)                              # Delay 10 us
     GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
     # Measure return echo pulse duration
-    pulse_start, pulse_end = time()
+    pulse_start = pulse_end = time()
     while GPIO.input(self.ECHO) == GPIO.LOW:    
       pulse_start = time()                         
 
