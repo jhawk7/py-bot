@@ -77,9 +77,9 @@ def detect():
 	while True:
 		if STOP:
 			break
-		while not RECOVERING:
+		while not RECOVERING or not OBJECT_DETECTED:
 			OBJECT_DETECTED = sonar_servo.objectDetected()
-			time.sleep(0.1)
+			time.sleep(0.5)
 	return
 
 
