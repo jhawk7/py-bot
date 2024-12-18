@@ -146,7 +146,9 @@ def stop():
 			motor.stop()
 			sonar_servo.reset()
 			GPIO.cleanup()
-		time.sleep(1)
+			break
+
+		time.sleep(0.5)
 	return
 
 
@@ -168,10 +170,10 @@ def main():
 	stopThread.start()
 	beepThread.start()
 
-	stopThread.join()
 	goThread.join()
 	detectThread.join()
 	beepThread.join()
+	stopThread.join()
 	print("py-bot terminated.")
 	sys.exit()
 
