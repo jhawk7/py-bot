@@ -113,9 +113,9 @@ def recover():
 			break
 		print("taking evasive maneuvers..")
 		motor.backward()
-		time.sleep(0.5)
+		time.sleep(1)
 		motor.stop()
-		time.sleep(0.5)
+		time.sleep(1)
 		
 		if not sonar_servo.checkRight():
 			print("turning right..")
