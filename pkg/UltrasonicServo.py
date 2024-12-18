@@ -24,6 +24,7 @@ class UltrasonicServo():
     sleep(0.00001)                              # Delay 10 us
     GPIO.output(self.TRIG, GPIO.LOW)            # Set TRIG LOW
     # Measure return echo pulse duration
+    pulse_start, pulse_end = time()
     while GPIO.input(self.ECHO) == GPIO.LOW:    
       pulse_start = time()                         
 
@@ -32,8 +33,7 @@ class UltrasonicServo():
 
     pulse_duration = pulse_end - pulse_start 
     # Distance = 17160.5 * Time (unit cm) at sea level and 20C
-    distance = pulse_duration * 17160.5            
-    distance = round(distance, 2)                    
+    distance = (pulse_duration * 34300) // 2            
 
     if 2 < distance < 400:              
       distance = distance + self.offset
