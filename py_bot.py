@@ -60,9 +60,7 @@ def beep():
 	global STOP
 	beeps = [e4, d4, d5, a4]
 	p = GPIO.PWM(speaker, 100)
-	while True:
-		if STOP:
-			break
+	while not STOP:
 		p.start(10)
 		for beep in beeps:
 			p.ChangeFrequency(beep)
@@ -78,9 +76,7 @@ def detect():
 	global RECOVERING
 	global STOP
 
-	while True:
-		if STOP:
-			break
+	while not STOP:
 		while not RECOVERING and not OBJECT_DETECTED:
 			with sonarLock:
 				OBJECT_DETECTED = sonar_servo.objectDetected()
@@ -93,23 +89,20 @@ def go():
 	global STOP
 	global RECOVERING
 
-	while True:
-		if STOP:
-			break
-		while not RECOVERING:
-			with motorLock:
-				if OBJECT_DETECTED:
-					motor.stop()
-					GPIO.output(LED,GPIO.HIGH)
-					time.sleep(0.2)
-					RECOVERING = True
-					recover()
-					GPIO.output(LED,GPIO.LOW)
-					OBJECT_DETECTED = False
-					time.sleep(1)
-				else:
-					motor.forward()
-					time.sleep(0.2)
+	while not STOP:
+		with motorLock:
+			if OBJECT_DETECTED:
+				motor.stop()
+				GPIO.output(LED,GPIO.HIGH)
+				time.sleep(0.2)
+				RECOVERING = True
+				recover()
+				GPIO.output(LED,GPIO.LOW)
+				OBJECT_DETECTED = False
+				time.sleep(1)
+			else:
+				motor.forward()
+				time.sleep(0.2)
 	return
 
 
@@ -117,9 +110,7 @@ def recover():
 	global RECOVERING
 	global STOP
 	
-	while RECOVERING:
-		if STOP:
-			break
+	while RECOVERING and not STOP:
 		print("taking evasive maneuvers..")
 		motor.backward()
 		time.sleep(1)
@@ -147,7 +138,7 @@ def recover():
 
 def stop():
 	global STOP
-	while True:
+	while not STOP:
 		user_input = input()
 		if user_input != None:
 			STOP = True
