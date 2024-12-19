@@ -10,6 +10,10 @@ OBJECT_DETECTED = False
 RECOVERING = False
 STOP = False
 
+#Locks
+sonarLock = threading.Lock()
+motorLock = threading.Lock()
+
 #Constants
 MIN_DISTANCE = 40 #in cm
 
@@ -77,9 +81,10 @@ def detect():
 	while True:
 		if STOP:
 			break
-		while not RECOVERING or not OBJECT_DETECTED:
-			OBJECT_DETECTED = sonar_servo.objectDetected()
-			time.sleep(0.5)
+		while not RECOVERING and not OBJECT_DETECTED:
+			with sonarLock:
+				OBJECT_DETECTED = sonar_servo.objectDetected()
+				time.sleep(0.5)
 	return
 
 
@@ -92,15 +97,19 @@ def go():
 		if STOP:
 			break
 		while not RECOVERING:
-			if OBJECT_DETECTED:
-				motor.stop()
-				GPIO.output(LED,GPIO.HIGH)
-				time.sleep(0.2)
-				RECOVERING = True
-				recover()
-				GPIO.output(LED,GPIO.LOW)
-			else:
-				motor.forward()
+			with motorLock:
+				if OBJECT_DETECTED:
+					motor.stop()
+					GPIO.output(LED,GPIO.HIGH)
+					time.sleep(0.2)
+					RECOVERING = True
+					recover()
+					GPIO.output(LED,GPIO.LOW)
+					OBJECT_DETECTED = False
+					time.sleep(1)
+				else:
+					motor.forward()
+					time.sleep(0.2)
 	return
 
 
@@ -116,20 +125,20 @@ def recover():
 		time.sleep(1)
 		motor.stop()
 		time.sleep(1)
-		
-		if not sonar_servo.checkRight():
-			print("turning right..")
-			motor.rightTurn()
-			time.sleep(1)
-		elif not sonar_servo.checkLeft():
-			print("turning left..")
-			motor.leftTurn()
-			time.sleep(1)
-		else:
-			print("turning around..")
-			motor.turnAround()
-			time.sleep(1)
-	
+		with sonarLock:
+			if not sonar_servo.checkRight():
+				print("turning right..")
+				motor.rightTurn()
+				time.sleep(1)
+			elif not sonar_servo.checkLeft():
+				print("turning left..")
+				motor.leftTurn()
+				time.sleep(1)
+			else:
+				print("turning around..")
+				motor.turnAround()
+				time.sleep(1)
+
 		RECOVERING = False
 		print("path clear..")
 		time.sleep(1)
@@ -143,8 +152,10 @@ def stop():
 		if user_input != None:
 			STOP = True
 			print("stopping..")
-			motor.stop()
-			sonar_servo.reset()
+			with motorLock:
+				motor.stop()
+			with sonarLock:
+				sonar_servo.reset()
 			GPIO.cleanup()
 			break
 
@@ -159,21 +170,15 @@ def main():
 	detectThread = threading.Thread(target=detect)
 	stopThread = threading.Thread(target=stop)
 	beepThread = threading.Thread(target=beep)
+	threads = [beepThread, goThread, detectThread, stopThread]
 
-	goThread.daemon = True
-	detectThread.daemon = True
-	stopThread.daemon = True
-	beepThread.daemon = True
+	for thread in threads:
+		thread.daemon = True
+		thread.start()
 	
-	goThread.start()
-	detectThread.start()
-	stopThread.start()
-	beepThread.start()
+	for thread in threads:
+		thread.join()
 
-	goThread.join()
-	detectThread.join()
-	beepThread.join()
-	stopThread.join()
 	print("py-bot terminated.")
 	sys.exit()
 
